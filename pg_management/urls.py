@@ -18,8 +18,11 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from adminapp.views import login,dashboard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("admin_login/",login,name="admin_login_link"),
+    path("admin_dashboard/",dashboard,name="admin_dashboard_link")
 ]
 urlpatterns = urlpatterns+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

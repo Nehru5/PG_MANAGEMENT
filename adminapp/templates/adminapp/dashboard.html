@@ -4,8 +4,37 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    *{
+      padding: 0;margin: 0;
+    }
+    .navbar{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background:linear-gradient(to right,rgb(238, 116, 236), rgb(240, 19, 207));
+      color: white;
+      height: 75px;
+    }
+    .right{
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      width: 50%;
+    }
+  </style>
 </head>
 <body>
-  <center><h1>Welcome to Dashboard</h1></center>
+  <div class="navbar">
+    <div class="left">
+      <h2>LOGO</h2>
+    </div>
+    <div class="right">
+      <h2>Add room</h2>
+      <h2>Manage room</h2>
+      <h2>Profile</h2>
+    </div>
+  </div>
+  <center><h1>Welcome, {{admin_name}}</h1></center>
 </body>
 </html>

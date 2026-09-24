@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from adminapp.models import Admin
+from adminapp.models import Admin,Room
 
 def login(request):
   if request.method == "POST":
@@ -47,5 +47,35 @@ def updateAdminProfile(request):
     return redirect("admin_profile_link")
   else:
     return render(request,"adminapp/admin_profile_update.html")
+  
+  
+def addRoom(request):
+  if request.method=="POST":
+    room_no = request.POST.get("room_no")
+    floor = request.POST.get("floor_no")
+    room_type = request.POST.get("room_type")
+    bed_no = request.POST.get("bed_no")
+    rent = request.POST.get("rent")
+    description = request.POST.get("description")
+    rating = request.POST.get("rating")
+    review = request.POST.get("review")
+    status = request.POST.get("status")
+    room_image = request.FILES.get("room_image")
+    
+    Room.objects.create(
+      room_no = room_no,
+      floor = floor,
+      room_type = room_type,
+      total_beds = bed_no,
+      monthly_rent = rent,
+      description = description,
+      rating=rating,
+      review=review,
+      status=status,
+      room_image = room_image
+    )
+    return redirect("admin_dashboard_link")
+  else:
+    return render(request,"adminapp/add_room.html")
 
 

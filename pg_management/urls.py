@@ -18,13 +18,14 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from adminapp.views import login,dashboard,adminprofile,updateAdminProfile
+from adminapp.views import login,dashboard,adminprofile,updateAdminProfile,addRoom
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("admin_login/",login,name="admin_login_link"),
     path("admin_dashboard/",dashboard,name="admin_dashboard_link"),
     path("admin_profile/",adminprofile,name="admin_profile_link"),
-    path("admin_profile_update/",updateAdminProfile,name="admin_profile_update_link")
+    path("admin_profile_update/",updateAdminProfile,name="admin_profile_update_link"),
+    path("add_room/",addRoom,name="add_room_link")
 ]
 urlpatterns = urlpatterns+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

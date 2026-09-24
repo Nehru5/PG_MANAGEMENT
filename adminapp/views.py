@@ -25,3 +25,27 @@ def dashboard(request):
   return render(request,"adminapp/dashboard.html",{"admin_name":admin_name})
 
 
+def adminprofile(request):
+  admin_id = request.session.get("admin_id")
+  admin = Admin.objects.get(id = admin_id)
+  return render(request,"adminapp/admin_profile.html",{"admin":admin})
+
+def updateAdminProfile(request):
+  if request.method=="POST":
+    username = request.POST.get("username")
+    email = request.POST.get("email")
+    phone = request.POST.get("phone")
+    admin_pic = request.FILES.get("admin_pic")
+    
+    admin_id = request.session.get("admin_id")
+    admin = Admin.objects.filter(id=admin_id).first()
+    admin.username = username
+    admin.email = email
+    admin.phone=phone
+    admin.admin_pic=admin_pic
+    admin.save()
+    return redirect("admin_profile_link")
+  else:
+    return render(request,"adminapp/admin_profile_update.html")
+
+

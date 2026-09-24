@@ -20,21 +20,23 @@
       display: flex;
       align-items: center;
       justify-content: space-evenly;
-      width: 50%;
+      
     }
   </style>
 </head>
 <body>
   <div class="navbar">
     <div class="left">
-      <h2>LOGO</h2>
+      <a href="{% url 'admin_dashboard_link' %}"><h2>Back to Dashboard</h2></a>
     </div>
     <div class="right">
-      <h2>Add room</h2>
-      <h2>Manage room</h2>
-      <a href="{% url 'admin_profile_link' %}"><h2>Profile</h2></a>
+      <a href="{% url 'admin_profile_update_link' %}"><h2>Update Profile</h2></a>
     </div>
   </div>
-  <center><h1>Welcome, {{admin_name}}</h1></center>
+  <center><h1>Profile</h1></center>
+  <h1>{{admin.username}}</h1>
+  <h2>{{admin.email}}</h2>
+  <h2>{{admin.phone}}</h2>
+  <img src="{{admin.admin_pic.url}}" height="200px" width="400px" alt={{admin.username}}>
 </body>
 </html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <center><h1>Update Profile</h1></center>
+  <center>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="text" placeholder="Enter name" name="username"> <br>
+      <input type="text" placeholder="Enter email" name="email"> <br>
+      <input type="text" placeholder="Enter phone" name="phone"> <br>
+      <input type="file" required name="admin_pic"> <br>
+      <button>Update</button>
+    </form>
+  </center>
+</body>
+</html>

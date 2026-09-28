@@ -1,20 +1,658 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <center><h1>Admin Login</h1></center>
-  <center>
-    <form method="post">
-      {% csrf_token %}
-      <input type="text" placeholder="Enter email" required name="email"> <br>
-      <input type="text" placeholder="Enter Password" required name="password"> <br>
 
-      <button>Login</button>
-  </form>
-</center>
+  <title>PG Management - Admin Login</title>
+
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+
+    /* ==============================
+       BODY
+    ============================== */
+
+    body {
+
+      min-height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      color: white;
+
+      background:
+        radial-gradient(
+          circle at 50% -20%,
+          rgba(229, 9, 20, 0.22),
+          transparent 40%
+        ),
+        radial-gradient(
+          circle at 100% 100%,
+          rgba(229, 9, 20, 0.08),
+          transparent 35%
+        ),
+        linear-gradient(
+          135deg,
+          #050505,
+          #0b0b0b,
+          #141414
+        );
+
+      overflow: hidden;
+
+      position: relative;
+    }
+
+
+    /* ==============================
+       CINEMATIC BACKGROUND
+    ============================== */
+
+    body::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 700px;
+      height: 700px;
+
+      background: rgba(229, 9, 20, 0.06);
+
+      border-radius: 50%;
+
+      filter: blur(100px);
+
+      top: -400px;
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      animation: backgroundGlow 6s ease-in-out infinite alternate;
+    }
+
+
+    @keyframes backgroundGlow {
+
+      from {
+        opacity: 0.4;
+        transform: translateX(-50%) scale(1);
+      }
+
+      to {
+        opacity: 0.8;
+        transform: translateX(-50%) scale(1.2);
+      }
+
+    }
+
+
+    /* ==============================
+       FLOATING PARTICLES
+    ============================== */
+
+    .particle {
+
+      position: absolute;
+
+      width: 5px;
+      height: 5px;
+
+      background: #e50914;
+
+      border-radius: 50%;
+
+      opacity: 0.3;
+
+      animation: particleFloat 7s infinite ease-in-out;
+    }
+
+
+    .particle:nth-child(1) {
+      top: 20%;
+      left: 15%;
+    }
+
+    .particle:nth-child(2) {
+      top: 70%;
+      left: 10%;
+      animation-delay: 2s;
+    }
+
+    .particle:nth-child(3) {
+      top: 30%;
+      right: 15%;
+      animation-delay: 1s;
+    }
+
+    .particle:nth-child(4) {
+      bottom: 15%;
+      right: 20%;
+      animation-delay: 3s;
+    }
+
+
+    @keyframes particleFloat {
+
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-30px);
+      }
+
+    }
+
+
+    /* ==============================
+       LOGIN CARD
+    ============================== */
+
+    .login-container {
+
+      width: 430px;
+
+      padding: 45px;
+
+      position: relative;
+      z-index: 5;
+
+      background: rgba(20, 20, 20, 0.72);
+
+      border: 1px solid rgba(255, 255, 255, 0.10);
+
+      border-radius: 8px;
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.8),
+        0 0 40px rgba(229, 9, 20, 0.08);
+
+      animation: cardAppear 0.8s ease;
+
+      transition: all 0.4s ease;
+    }
+
+
+    .login-container:hover {
+
+      transform: translateY(-6px);
+
+      box-shadow:
+        0 40px 100px rgba(0, 0, 0, 0.9),
+        0 0 50px rgba(229, 9, 20, 0.12);
+    }
+
+
+    @keyframes cardAppear {
+
+      from {
+
+        opacity: 0;
+
+        transform:
+          translateY(40px)
+          scale(0.96);
+
+      }
+
+      to {
+
+        opacity: 1;
+
+        transform:
+          translateY(0)
+          scale(1);
+
+      }
+
+    }
+
+
+    /* ==============================
+       LOGO
+    ============================== */
+
+    .logo {
+
+      text-align: center;
+
+      font-size: 42px;
+
+      font-weight: 900;
+
+      letter-spacing: -3px;
+
+      color: #e50914;
+
+      text-shadow:
+        0 0 20px rgba(229, 9, 20, 0.35);
+
+      margin-bottom: 12px;
+
+      animation: logoAnimation 2s ease-in-out infinite alternate;
+    }
+
+
+    @keyframes logoAnimation {
+
+      from {
+        text-shadow:
+          0 0 10px rgba(229, 9, 20, 0.2);
+      }
+
+      to {
+        text-shadow:
+          0 0 30px rgba(229, 9, 20, 0.5);
+      }
+
+    }
+
+
+    /* ==============================
+       TITLE
+    ============================== */
+
+    h1 {
+
+      text-align: center;
+
+      font-size: 28px;
+
+      font-weight: 600;
+
+      margin-bottom: 8px;
+
+      color: #ffffff;
+    }
+
+
+    .subtitle {
+
+      text-align: center;
+
+      color: #999;
+
+      font-size: 14px;
+
+      margin-bottom: 32px;
+    }
+
+
+    /* ==============================
+       INPUT
+    ============================== */
+
+    .input-group {
+
+      margin-bottom: 20px;
+    }
+
+
+    .input-group label {
+
+      display: block;
+
+      color: #b3b3b3;
+
+      font-size: 13px;
+
+      margin-bottom: 8px;
+    }
+
+
+    input {
+
+      width: 100%;
+
+      padding: 15px;
+
+      border: 1px solid #333;
+
+      border-radius: 4px;
+
+      outline: none;
+
+      background: #222;
+
+      color: white;
+
+      font-size: 14px;
+
+      transition:
+        border 0.3s ease,
+        background 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+
+    input::placeholder {
+      color: #777;
+    }
+
+
+    input:hover {
+      background: #272727;
+    }
+
+
+    input:focus {
+
+      background: #242424;
+
+      border-color: #e50914;
+
+      box-shadow:
+        0 0 0 2px rgba(229, 9, 20, 0.12);
+
+      transform: translateY(-2px);
+    }
+
+
+    /* ==============================
+       LOGIN BUTTON
+    ============================== */
+
+    button {
+
+      width: 100%;
+
+      padding: 15px;
+
+      margin-top: 8px;
+
+      border: none;
+
+      border-radius: 4px;
+
+      background: #e50914;
+
+      color: white;
+
+      font-size: 16px;
+
+      font-weight: bold;
+
+      cursor: pointer;
+
+      position: relative;
+
+      overflow: hidden;
+
+      transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        box-shadow 0.3s ease;
+    }
+
+
+    button::before {
+
+      content: "";
+
+      position: absolute;
+
+      top: 0;
+      left: -120%;
+
+      width: 100%;
+      height: 100%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.25),
+          transparent
+        );
+
+      transition: 0.6s;
+    }
+
+
+    button:hover::before {
+      left: 120%;
+    }
+
+
+    button:hover {
+
+      background: #f6121d;
+
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 10px 30px rgba(229, 9, 20, 0.35);
+    }
+
+
+    button:active {
+
+      transform: scale(0.98);
+    }
+
+
+    /* ==============================
+       FOOTER
+    ============================== */
+
+    .footer {
+
+      text-align: center;
+
+      color: #666;
+
+      font-size: 12px;
+
+      margin-top: 25px;
+    }
+
+
+    .footer span {
+      color: #e50914;
+    }
+
+
+    /* ==============================
+       RED LINE
+    ============================== */
+
+    .red-line {
+
+      width: 45px;
+
+      height: 3px;
+
+      background: #e50914;
+
+      margin: 18px auto 25px;
+
+      border-radius: 10px;
+
+      box-shadow:
+        0 0 12px rgba(229, 9, 20, 0.6);
+
+      animation: lineAnimation 2s ease-in-out infinite alternate;
+    }
+
+
+    @keyframes lineAnimation {
+
+      from {
+        width: 35px;
+      }
+
+      to {
+        width: 70px;
+      }
+
+    }
+
+
+    /* ==============================
+       RESPONSIVE
+    ============================== */
+
+    @media (max-width: 600px) {
+
+      body {
+        padding: 20px;
+      }
+
+
+      .login-container {
+
+        width: 100%;
+
+        padding: 35px 25px;
+
+        border-radius: 6px;
+      }
+
+
+      .logo {
+        font-size: 36px;
+      }
+
+
+      h1 {
+        font-size: 25px;
+      }
+
+    }
+
+
+    @media (max-width: 380px) {
+
+      .login-container {
+        padding: 30px 20px;
+      }
+
+
+      .logo {
+        font-size: 32px;
+      }
+
+
+      h1 {
+        font-size: 23px;
+      }
+
+
+      input,
+      button {
+        padding: 13px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- Background Particles -->
+
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+  <div class="particle"></div>
+
+
+  <!-- Login Card -->
+
+  <div class="login-container">
+
+
+    <div class="logo">
+      PG
+    </div>
+
+
+    <h1>Admin Login</h1>
+
+
+    <div class="red-line"></div>
+
+
+    <p class="subtitle">
+      Manage your PG with ease
+    </p>
+
+
+    <form method="post">
+
+      {% csrf_token %}
+
+
+      <div class="input-group">
+
+        <label>Email Address</label>
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+        >
+
+      </div>
+
+
+      <div class="input-group">
+
+        <label>Password</label>
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Enter your password"
+          required
+        >
+
+      </div>
+
+
+      <button type="submit">
+        Sign In
+      </button>
+
+
+    </form>
+
+
+    <div class="footer">
+
+      Secure Admin Access ·
+      <span>PG Management System</span>
+
+    </div>
+
+
+  </div>
+
+
 </body>
+
 </html>

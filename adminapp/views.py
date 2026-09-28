@@ -22,7 +22,8 @@ def login(request):
   
 def dashboard(request):
   admin_name = request.session.get("admin_name")
-  return render(request,"adminapp/dashboard.html",{"admin_name":admin_name})
+  rooms = Room.objects.all()
+  return render(request,"adminapp/dashboard.html",{"admin_name":admin_name,"rooms":rooms})
 
 
 def adminprofile(request):
@@ -79,3 +80,6 @@ def addRoom(request):
     return render(request,"adminapp/add_room.html")
 
 
+def roomDetail(request,id):
+  room = Room.objects.get(id = id)
+  return render(request,"adminapp/room_detail.html",{"room":room})

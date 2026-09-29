@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from adminapp.models import Admin,Room
+from adminapp.models import Admin,Room,Notice
 
 def login(request):
   if request.method == "POST":
@@ -83,3 +83,14 @@ def addRoom(request):
 def roomDetail(request,id):
   room = Room.objects.get(id = id)
   return render(request,"adminapp/room_detail.html",{"room":room})
+
+
+def notice(request):
+  if request.method == "POST":
+    title = request.POST.get("title")
+    description = request.POST.get("description")
+    Notice.objects.create(title=title,description=description)
+    return redirect("notice_link")
+  else:
+    notice = Notice.objects.all().order_by("-created_at")
+    return render(request,"adminapp/notice.html",{"notice":notice})

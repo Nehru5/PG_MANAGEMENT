@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <center><h1>Post Notice</h1></center>
+  <center>
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" placeholder="Enter tile" required name="title"> <br>
+      <textarea name="description" required placeholder="Enter Description"></textarea> <br>
+      <button>Post Notice</button>
+    </form>
+  </center>
+
+  {% for i in notice %}
+    <h2>Title: {{i.title}}</h2>
+    <p><b>Description: {{i.description}}</b></p>
+    <p><b>Date</b>: {{i.created_at}}</p>
+    <button>Delete</button>
+  {% endfor %}
+</body>
+</html>

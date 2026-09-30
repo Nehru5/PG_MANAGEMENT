@@ -6,7 +6,7 @@ def login(request):
   if request.method == "POST":
     email = request.POST.get("email")
     password = request.POST.get("password")
-    
+  
     admin = Admin.objects.filter(email = email,password=password).first()
     
     if(admin):
@@ -21,17 +21,25 @@ def login(request):
   
   
 def dashboard(request):
+  if "admin_name" not in request.session:
+    return redirect("admin_login_link")
+  
   admin_name = request.session.get("admin_name")
+  
   rooms = Room.objects.all()
   return render(request,"adminapp/dashboard.html",{"admin_name":admin_name,"rooms":rooms})
 
 
 def adminprofile(request):
+  if "admin_name" not in request.session:
+    return redirect("admin_login_link")
   admin_id = request.session.get("admin_id")
   admin = Admin.objects.get(id = admin_id)
   return render(request,"adminapp/admin_profile.html",{"admin":admin})
 
 def updateAdminProfile(request):
+  if "admin_name" not in request.session:
+    return redirect("admin_login_link")
   if request.method=="POST":
     username = request.POST.get("username")
     email = request.POST.get("email")
@@ -51,6 +59,8 @@ def updateAdminProfile(request):
   
   
 def addRoom(request):
+  if "admin_name" not in request.session:
+      return redirect("admin_login_link")
   if request.method=="POST":
     room_no = request.POST.get("room_no")
     floor = request.POST.get("floor_no")
@@ -81,11 +91,16 @@ def addRoom(request):
 
 
 def roomDetail(request,id):
+  if "admin_name" not in request.session:
+    return redirect("admin_login_link")
   room = Room.objects.get(id = id)
   return render(request,"adminapp/room_detail.html",{"room":room})
 
 
 def notice(request):
+  if "admin_name" not in request.session:
+    return redirect("admin_login_link")
+  
   if request.method == "POST":
     title = request.POST.get("title")
     description = request.POST.get("description")
@@ -94,3 +109,8 @@ def notice(request):
   else:
     notice = Notice.objects.all().order_by("-created_at")
     return render(request,"adminapp/notice.html",{"notice":notice})
+  
+  
+def logout(request):
+  request.session.flush()
+  return redirect("admin_login_link")

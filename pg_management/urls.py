@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from adminapp.views import login,dashboard,adminprofile,updateAdminProfile,addRoom,roomDetail,notice
+from adminapp.views import login,dashboard,adminprofile,updateAdminProfile,addRoom,roomDetail,notice,logout
+from userapp.views import user_signup,user_login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,6 +29,9 @@ urlpatterns = [
     path("admin_profile_update/",updateAdminProfile,name="admin_profile_update_link"),
     path("add_room/",addRoom,name="add_room_link"),
     path("room_detail/<int:id>/",roomDetail,name="room_detail_link"),
-    path("notice/",notice,name="notice_link")
+    path("notice/",notice,name="notice_link"),
+    path("logout/",logout,name="logout_link"),
+    path("user_signup/",user_signup,name="user_signup_link"),
+    path("user_login/",user_login,name="user_login_link")
 ]
 urlpatterns = urlpatterns+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <center><h1>Update Profile</h1></center>
+  <center>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="text" placeholder="Enter city" required name="city"> <br>
+      <input type="text" placeholder="Pincode" required name="pincode"> <br>
+      <input type="text" name="state" placeholder="Enter state" required> <br>
+      <input type="text" placeholder="Enter country" required name="country"> <br>
+      <textarea name="address" placeholder="Enter address" required></textarea>
+      <textarea name="bio" placeholder="Enter Bio" required></textarea> <br>
+      <input type="text" name="aadhar_no" placeholder="Enter Aadhar number" required> <br>
+      <input type="file" required name="aadhar_image"> <br>
+      <input type="file" required name="profile_pic"> <br>
+      <button>Update</button>
+    </form>
+  </center>
+</body>
+</html>

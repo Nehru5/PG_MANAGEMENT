@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Room Details</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: white;
+
+      background:
+        radial-gradient(
+          circle at 15% 20%,
+          rgba(229, 9, 20, 0.18),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 85% 80%,
+          rgba(229, 9, 20, 0.12),
+          transparent 30%
+        ),
+        #080808;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 40px 20px;
+    }
+
+    /* Main Glass Card */
+
+    .room-card {
+      width: 950px;
+      max-width: 100%;
+
+      display: flex;
+      gap: 35px;
+
+      padding: 25px;
+
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.13);
+
+      border-radius: 25px;
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.7),
+        inset 0 1px 1px rgba(255, 255, 255, 0.08);
+
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Red Glow */
+
+    .room-card::before {
+      content: "";
+
+      position: absolute;
+
+      width: 250px;
+      height: 250px;
+
+      background: #e50914;
+
+      filter: blur(120px);
+
+      opacity: 0.18;
+
+      top: -100px;
+      right: -100px;
+
+      pointer-events: none;
+    }
+
+    /* Image Section */
+
+    .image-section {
+      width: 48%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .image-section img {
+      width: 100%;
+      height: 430px;
+
+      object-fit: cover;
+
+      border-radius: 18px;
+
+      display: block;
+
+      box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.6);
+
+      transition: 0.5s ease;
+    }
+
+    .image-section:hover img {
+      transform: scale(1.02);
+
+      box-shadow:
+        0 20px 45px rgba(229, 9, 20, 0.2);
+    }
+
+    /* Image Overlay */
+
+    .image-section::after {
+      content: "";
+
+      position: absolute;
+
+      left: 0;
+      right: 0;
+      bottom: 0;
+
+      height: 45%;
+
+      border-radius: 18px;
+
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.65),
+        transparent
+      );
+
+      pointer-events: none;
+    }
+
+    /* Details */
+
+    .details {
+      width: 52%;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      position: relative;
+      z-index: 2;
+    }
+
+    .details h1 {
+      font-size: 42px;
+
+      margin-bottom: 25px;
+
+      font-weight: 800;
+
+      letter-spacing: -1px;
+    }
+
+    .details h1 span {
+      color: #e50914;
+
+      text-shadow:
+        0 0 15px rgba(229, 9, 20, 0.5);
+    }
+
+    /* Detail Items */
+
+    .detail-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 15px 18px;
+
+      margin-bottom: 10px;
+
+      border-radius: 10px;
+
+      background: rgba(255, 255, 255, 0.055);
+
+      border: 1px solid rgba(255, 255, 255, 0.07);
+
+      transition: 0.3s ease;
+    }
+
+    .detail-box:hover {
+      background: rgba(229, 9, 20, 0.1);
+
+      border-color: rgba(229, 9, 20, 0.35);
+
+      transform: translateX(5px);
+    }
+
+    .detail-label {
+      color: #999;
+
+      font-size: 14px;
+    }
+
+    .detail-value {
+      color: #fff;
+
+      font-size: 16px;
+
+      font-weight: 600;
+
+      text-align: right;
+    }
+
+    /* Rent */
+
+    .rent {
+      color: #e50914;
+
+      font-size: 20px;
+
+      text-shadow:
+        0 0 12px rgba(229, 9, 20, 0.4);
+    }
+
+    /* Status */
+
+    .status {
+      color: #32d74b;
+
+      text-transform: capitalize;
+    }
+
+    /* Book Button */
+
+    .book-btn {
+      width: 100%;
+
+      height: 50px;
+
+      margin-top: 20px;
+
+      border: none;
+
+      border-radius: 9px;
+
+      color: white;
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+      letter-spacing: 0.5px;
+
+      cursor: pointer;
+
+      background: linear-gradient(
+        135deg,
+        #e50914,
+        #b20710
+      );
+
+      box-shadow:
+        0 8px 25px rgba(229, 9, 20, 0.3);
+
+      transition: 0.3s ease;
+    }
+
+    .book-btn:hover {
+      transform: translateY(-3px);
+
+      background: linear-gradient(
+        135deg,
+        #ff1f2a,
+        #e50914
+      );
+
+      box-shadow:
+        0 12px 35px rgba(229, 9, 20, 0.5);
+    }
+
+    .book-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* Back Button */
+
+    .back-btn {
+      display: inline-block;
+
+      margin-top: 12px;
+
+      padding: 12px;
+
+      text-align: center;
+
+      color: #aaa;
+
+      text-decoration: none;
+
+      font-size: 13px;
+
+      transition: 0.3s ease;
+    }
+
+    .back-btn:hover {
+      color: white;
+    }
+
+    /* Mobile */
+
+    @media (max-width: 768px) {
+
+      body {
+        padding: 20px;
+      }
+
+      .room-card {
+        flex-direction: column;
+
+        padding: 15px;
+
+        gap: 25px;
+      }
+
+      .image-section {
+        width: 100%;
+      }
+
+      .image-section img {
+        height: 300px;
+      }
+
+      .details {
+        width: 100%;
+      }
+
+      .details h1 {
+        font-size: 32px;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      .image-section img {
+        height: 250px;
+      }
+
+      .details h1 {
+        font-size: 28px;
+      }
+
+      .detail-box {
+        padding: 13px;
+      }
+
+      .detail-label {
+        font-size: 12px;
+      }
+
+      .detail-value {
+        font-size: 14px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="room-card">
+
+    <!-- Room Image -->
+
+    <div class="image-section">
+      <img
+        src="{{room.room_image.url}}"
+        alt="Room Image"
+      >
+    </div>
+
+
+    <!-- Room Information -->
+
+    <div class="details">
+
+      <h1>
+        Room <span>{{room.room_no}}</span>
+      </h1>
+
+      <div class="detail-box">
+        <span class="detail-label">Room Number</span>
+        <span class="detail-value">
+          {{room.room_no}}
+        </span>
+      </div>
+
+      <div class="detail-box">
+        <span class="detail-label">Floor</span>
+        <span class="detail-value">
+          {{room.floor}}
+        </span>
+      </div>
+
+      <div class="detail-box">
+        <span class="detail-label">Room Type</span>
+        <span class="detail-value">
+          {{room.room_type}}
+        </span>
+      </div>
+
+      <div class="detail-box">
+        <span class="detail-label">Number of Beds</span>
+        <span class="detail-value">
+          {{room.total_beds}}
+        </span>
+      </div>
+
+      <div class="detail-box">
+        <span class="detail-label">Monthly Rent</span>
+        <span class="detail-value rent">
+          ₹ {{room.monthly_rent}}
+        </span>
+      </div>
+
+      <div class="detail-box">
+        <span class="detail-label">Status</span>
+        <span class="detail-value status">
+          {{room.status}}
+        </span>
+      </div>
+
+      <button class="book-btn">
+        Book Room
+      </button>
+
+      <a href="javascript:history.back()" class="back-btn">
+        ← Back to Rooms
+      </a>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

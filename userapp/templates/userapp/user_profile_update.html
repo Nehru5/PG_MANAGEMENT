@@ -3,24 +3,625 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+
+  <title>Update Profile</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+
+      font-family: Arial, Helvetica, sans-serif;
+
+      color: white;
+
+      background:
+        radial-gradient(
+          circle at 10% 10%,
+          rgba(229, 9, 20, 0.18),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 90% 90%,
+          rgba(229, 9, 20, 0.12),
+          transparent 30%
+        ),
+        #080808;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 40px 20px;
+    }
+
+
+    /* ================= MAIN CARD ================= */
+
+    .profile-card {
+
+      width: 650px;
+      max-width: 100%;
+
+      padding: 35px;
+
+      border-radius: 25px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.10),
+          rgba(255, 255, 255, 0.035)
+        );
+
+      border: 1px solid rgba(255, 255, 255, 0.12);
+
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+
+      box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.7),
+        inset 0 1px 1px rgba(255, 255, 255, 0.08);
+
+      position: relative;
+
+      overflow: hidden;
+    }
+
+
+    /* Red Glow */
+
+    .profile-card::before {
+
+      content: "";
+
+      position: absolute;
+
+      width: 220px;
+      height: 220px;
+
+      background: #e50914;
+
+      filter: blur(120px);
+
+      opacity: 0.15;
+
+      top: -100px;
+      right: -100px;
+
+      pointer-events: none;
+    }
+
+
+    /* ================= TITLE ================= */
+
+    .title {
+
+      text-align: center;
+
+      margin-bottom: 30px;
+
+      position: relative;
+      z-index: 2;
+    }
+
+    .title h1 {
+
+      font-size: 38px;
+
+      font-weight: 800;
+
+      letter-spacing: -1px;
+    }
+
+    .title h1 span {
+
+      color: #e50914;
+
+      text-shadow:
+        0 0 15px rgba(229, 9, 20, 0.5);
+    }
+
+    .title p {
+
+      color: #888;
+
+      font-size: 14px;
+
+      margin-top: 8px;
+    }
+
+
+    /* ================= FORM ================= */
+
+    form {
+
+      position: relative;
+
+      z-index: 2;
+    }
+
+
+    .form-group {
+
+      margin-bottom: 18px;
+    }
+
+
+    .form-group label {
+
+      display: block;
+
+      margin-bottom: 7px;
+
+      color: #aaa;
+
+      font-size: 13px;
+
+      font-weight: 600;
+    }
+
+
+    input,
+    textarea {
+
+      width: 100%;
+
+      border: 1px solid rgba(255, 255, 255, 0.10);
+
+      outline: none;
+
+      border-radius: 9px;
+
+      background: rgba(255, 255, 255, 0.055);
+
+      color: white;
+
+      font-size: 14px;
+
+      transition: 0.3s ease;
+
+      font-family: inherit;
+    }
+
+
+    input {
+
+      height: 48px;
+
+      padding: 0 15px;
+    }
+
+
+    textarea {
+
+      min-height: 100px;
+
+      padding: 14px 15px;
+
+      resize: vertical;
+    }
+
+
+    input::placeholder,
+    textarea::placeholder {
+
+      color: #777;
+    }
+
+
+    input:focus,
+    textarea:focus {
+
+      border-color: #e50914;
+
+      background: rgba(229, 9, 20, 0.06);
+
+      box-shadow:
+        0 0 0 2px rgba(229, 9, 20, 0.10),
+        0 0 18px rgba(229, 9, 20, 0.08);
+    }
+
+
+    /* ================= TWO COLUMNS ================= */
+
+    .row {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 15px;
+    }
+
+
+    /* ================= FILE UPLOAD ================= */
+
+    .file-box {
+
+      position: relative;
+
+      border: 1px dashed rgba(255, 255, 255, 0.20);
+
+      border-radius: 10px;
+
+      padding: 15px;
+
+      background: rgba(255, 255, 255, 0.035);
+
+      transition: 0.3s ease;
+    }
+
+
+    .file-box:hover {
+
+      border-color: #e50914;
+
+      background: rgba(229, 9, 20, 0.05);
+    }
+
+
+    .file-box label {
+
+      display: block;
+
+      color: #ccc;
+
+      font-size: 13px;
+
+      font-weight: 600;
+
+      margin-bottom: 10px;
+    }
+
+
+    input[type="file"] {
+
+      height: auto;
+
+      padding: 10px;
+
+      cursor: pointer;
+
+      color: #aaa;
+
+      background: rgba(0, 0, 0, 0.25);
+
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+
+    input[type="file"]::file-selector-button {
+
+      border: none;
+
+      background: #e50914;
+
+      color: white;
+
+      padding: 8px 12px;
+
+      border-radius: 6px;
+
+      margin-right: 10px;
+
+      cursor: pointer;
+
+      font-weight: 600;
+
+      transition: 0.3s ease;
+    }
+
+
+    input[type="file"]::file-selector-button:hover {
+
+      background: #ff1b25;
+    }
+
+
+    /* ================= BUTTON ================= */
+
+    .update-btn {
+
+      width: 100%;
+
+      height: 50px;
+
+      margin-top: 10px;
+
+      border: none;
+
+      border-radius: 9px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #e50914,
+          #b20710
+        );
+
+      color: white;
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+      letter-spacing: 0.5px;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 8px 25px rgba(229, 9, 20, 0.3);
+
+      transition: 0.3s ease;
+    }
+
+
+    .update-btn:hover {
+
+      transform: translateY(-3px);
+
+      background:
+        linear-gradient(
+          135deg,
+          #ff1f2a,
+          #e50914
+        );
+
+      box-shadow:
+        0 12px 35px rgba(229, 9, 20, 0.5);
+    }
+
+
+    .update-btn:active {
+
+      transform: scale(0.98);
+    }
+
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 600px) {
+
+      body {
+
+        padding: 20px 15px;
+      }
+
+
+      .profile-card {
+
+        padding: 25px 20px;
+
+        border-radius: 20px;
+      }
+
+
+      .title h1 {
+
+        font-size: 30px;
+      }
+
+
+      .row {
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+      }
+
+
+      input {
+
+        height: 46px;
+      }
+    }
+
+  </style>
 </head>
+
 <body>
-  <center><h1>Update Profile</h1></center>
-  <center>
+
+
+  <!-- ================= PROFILE CARD ================= -->
+
+  <div class="profile-card">
+
+
+    <!-- TITLE -->
+
+    <div class="title">
+
+      <h1>
+        Update <span>Profile</span>
+      </h1>
+
+      <p>
+        Keep your profile information up to date
+      </p>
+
+    </div>
+
+
+    <!-- FORM -->
+
     <form method="post" enctype="multipart/form-data">
+
       {% csrf_token %}
-      <input type="text" placeholder="Enter city" required name="city"> <br>
-      <input type="text" placeholder="Pincode" required name="pincode"> <br>
-      <input type="text" name="state" placeholder="Enter state" required> <br>
-      <input type="text" placeholder="Enter country" required name="country"> <br>
-      <textarea name="address" placeholder="Enter address" required></textarea>
-      <textarea name="bio" placeholder="Enter Bio" required></textarea> <br>
-      <input type="text" name="aadhar_no" placeholder="Enter Aadhar number" required> <br>
-      <input type="file" required name="aadhar_image"> <br>
-      <input type="file" required name="profile_pic"> <br>
-      <button>Update</button>
+
+
+      <!-- CITY + STATE -->
+
+      <div class="row">
+
+        <div class="form-group">
+
+          <label>City</label>
+
+          <input
+            type="text"
+            name="city"
+            placeholder="Enter city"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>State</label>
+
+          <input
+            type="text"
+            name="state"
+            placeholder="Enter state"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- PINCODE + COUNTRY -->
+
+      <div class="row">
+
+        <div class="form-group">
+
+          <label>Pincode</label>
+
+          <input
+            type="text"
+            name="pincode"
+            placeholder="Enter pincode"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>Country</label>
+
+          <input
+            type="text"
+            name="country"
+            placeholder="Enter country"
+            required
+          >
+
+        </div>
+
+      </div>
+
+
+      <!-- ADDRESS -->
+
+      <div class="form-group">
+
+        <label>Address</label>
+
+        <textarea
+          name="address"
+          placeholder="Enter your complete address"
+          required
+        ></textarea>
+
+      </div>
+
+
+      <!-- BIO -->
+
+      <div class="form-group">
+
+        <label>Bio</label>
+
+        <textarea
+          name="bio"
+          placeholder="Tell us something about yourself..."
+          required
+        ></textarea>
+
+      </div>
+
+
+      <!-- AADHAR -->
+
+      <div class="form-group">
+
+        <label>Aadhar Number</label>
+
+        <input
+          type="text"
+          name="aadhar_no"
+          placeholder="Enter Aadhar number"
+          required
+        >
+
+      </div>
+
+
+      <!-- FILES -->
+
+      <div class="row">
+
+
+        <div class="file-box">
+
+          <label>
+            Aadhar Image
+          </label>
+
+          <input
+            type="file"
+            name="aadhar_image"
+            required
+          >
+
+        </div>
+
+
+        <div class="file-box">
+
+          <label>
+            Profile Picture
+          </label>
+
+          <input
+            type="file"
+            name="profile_pic"
+            required
+          >
+
+        </div>
+
+
+      </div>
+
+
+      <!-- UPDATE -->
+
+      <button
+        type="submit"
+        class="update-btn"
+      >
+        Update Profile
+      </button>
+
+
     </form>
-  </center>
+
+  </div>
+
+
 </body>
 </html>

@@ -3,77 +3,414 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Netflix Style Rooms</title>
+
   <style>
-    *{
-      padding: 0;margin: 0;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .navbar{
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #fff;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(229, 9, 20, 0.18), transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(229, 9, 20, 0.12), transparent 30%),
+        #080808;
+      overflow-x: hidden;
+    }
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+      height: 75px;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 75px;
-      width: 100%;
-      background-color: blueviolet;
-      color:  white;
+      padding: 0 5%;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: rgba(10, 10, 10, 0.72);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
     }
-    .right{
+
+    /* Netflix-style logo */
+
+    .left h2 {
+      font-size: 30px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #e50914;
+
+      text-shadow:
+        0 0 10px rgba(229, 9, 20, 0.5),
+        0 0 25px rgba(229, 9, 20, 0.25);
+    }
+
+    .right {
       display: flex;
       align-items: center;
-      justify-content: space-evenly;
-      width: 50%;
+      justify-content: flex-end;
+      gap: 35px;
     }
-    .container{
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      margin-top: 30px;
-    }
-    .rooms{
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      flex-direction: column;
-      box-shadow:  0 0 10px black;
-      border-radius: 20px;
-      padding: 10px;
-    }
-    .rooms button{
-      height: 30px;
-      background-color: blueviolet;
-      color: white;
-      font-weight: bolder;
-      border-radius: 10px;
-      border: none;
-      padding: 5px;
-      width: 50%;
-      margin-top: 10px;
+
+    .right h2 {
+      font-size: 15px;
+      font-weight: 500;
+      color: #ddd;
       cursor: pointer;
+      transition: 0.3s ease;
+      position: relative;
     }
+
+    .right h2::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+      width: 0;
+      height: 2px;
+      background: #e50914;
+      transition: 0.3s ease;
+    }
+
+    .right h2:hover {
+      color: #fff;
+      text-shadow: 0 0 10px rgba(229, 9, 20, 0.8);
+    }
+
+    .right h2:hover::after {
+      width: 100%;
+    }
+
+    /* ================= WELCOME ================= */
+
+    .welcome {
+      text-align: center;
+      padding: 55px 20px 20px;
+    }
+
+    .welcome h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .welcome h1 span {
+      color: #e50914;
+      text-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
+    }
+
+    .welcome p {
+      margin-top: 12px;
+      color: #999;
+      font-size: 15px;
+    }
+
+    /* ================= ROOM CONTAINER ================= */
+
+    .container {
+      width: 90%;
+      max-width: 1400px;
+      margin: 40px auto 80px;
+
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+
+    /* ================= ROOM CARD ================= */
+
+    .rooms {
+      position: relative;
+      overflow: hidden;
+
+      padding: 10px;
+      border-radius: 18px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.035)
+        );
+
+      border: 1px solid rgba(255, 255, 255, 0.12);
+
+      box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease,
+        border-color 0.4s ease;
+    }
+
+    .rooms::before {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      background: #e50914;
+      filter: blur(90px);
+      opacity: 0;
+      top: -80px;
+      right: -70px;
+      transition: 0.4s ease;
+    }
+
+    .rooms:hover {
+      transform: translateY(-10px) scale(1.02);
+
+      border-color: rgba(229, 9, 20, 0.65);
+
+      box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.7),
+        0 0 25px rgba(229, 9, 20, 0.18);
+    }
+
+    .rooms:hover::before {
+      opacity: 0.35;
+    }
+
+    /* ================= ROOM IMAGE ================= */
+
+    .rooms img {
+      display: block;
+      width: 100%;
+      height: 250px;
+
+      object-fit: cover;
+      border-radius: 13px;
+
+      transition: transform 0.5s ease, filter 0.5s ease;
+    }
+
+    .rooms:hover img {
+      transform: scale(1.06);
+      filter: brightness(0.72);
+    }
+
+    /* Image overlay */
+
+    .rooms::after {
+      content: "";
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 10px;
+      height: 250px;
+
+      border-radius: 13px;
+
+      background:
+        linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.7),
+          transparent 60%
+        );
+
+      pointer-events: none;
+    }
+
+    /* ================= BUTTON ================= */
+
+    .rooms a {
+      width: 100%;
+      text-decoration: none;
+    }
+
+    .rooms button {
+      position: relative;
+      z-index: 5;
+
+      display: block;
+      width: 90%;
+      height: 42px;
+
+      margin: 15px auto 5px;
+
+      border: none;
+      border-radius: 8px;
+
+      background: linear-gradient(
+        135deg,
+        #e50914,
+        #b20710
+      );
+
+      color: #fff;
+
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 5px 15px rgba(229, 9, 20, 0.3);
+
+      transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+    }
+
+    .rooms button:hover {
+      transform: translateY(-2px);
+
+      background: linear-gradient(
+        135deg,
+        #ff1b25,
+        #e50914
+      );
+
+      box-shadow:
+        0 8px 25px rgba(229, 9, 20, 0.5);
+    }
+
+    .rooms button:active {
+      transform: scale(0.97);
+    }
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 768px) {
+
+      .navbar {
+        height: auto;
+        min-height: 70px;
+        padding: 15px 20px;
+        gap: 20px;
+      }
+
+      .left h2 {
+        font-size: 24px;
+      }
+
+      .right {
+        gap: 15px;
+        overflow-x: auto;
+        justify-content: flex-end;
+      }
+
+      .right h2 {
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .welcome {
+        padding-top: 40px;
+      }
+
+      .container {
+        width: 88%;
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .rooms img {
+        height: 240px;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      .navbar {
+        align-items: flex-start;
+      }
+
+      .right {
+        gap: 12px;
+      }
+
+      .right h2:nth-child(1),
+      .right h2:nth-child(2) {
+        display: none;
+      }
+
+      .welcome h1 {
+        font-size: 30px;
+      }
+    }
+
   </style>
 </head>
+
 <body>
+
+  <!-- ================= NAVBAR ================= -->
+
   <div class="navbar">
+
     <div class="left">
-      <h2>LOGO</h2>
+      <h2>NETFLIX</h2>
     </div>
+
     <div class="right">
       <h2>View Fees</h2>
       <h2>View Notice</h2>
       <h2>View Food</h2>
       <h2>Profile</h2>
     </div>
+
   </div>
 
-  <center><h1>Welcome, {{username}} </h1></center>
+
+  <!-- ================= WELCOME ================= -->
+
+  <div class="welcome">
+    <h1>
+      Welcome, <span>{{username}}</span>
+    </h1>
+
+    <p>
+      Explore your available rooms
+    </p>
+  </div>
+
+
+  <!-- ================= ROOMS ================= -->
 
   <div class="container">
+
     {% for i in rooms %}
+
     <div class="rooms">
-      <img src="{{i.room_image.url}}" height="250px" width="250px" alt="">
-      <button>View Room</button>
+
+      <img
+        src="{{i.room_image.url}}"
+        height="250px"
+        width="250px"
+        alt="Room Image"
+      >
+
+      <a href="{% url 'user_room_view_link' i.id %}">
+        <button>
+          View Room
+        </button>
+      </a>
+
     </div>
+
     {% endfor %}
+
   </div>
+
 </body>
 </html>

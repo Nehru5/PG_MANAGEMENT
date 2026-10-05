@@ -3,6 +3,9 @@ from django.http import HttpResponse
 from userapp.models import User,UserProfile
 from adminapp.models import Room
 
+def homepage(request):
+  return render(request,"adminapp/home.html")
+
 def user_signup(request):
   if request.method == "POST":
     username = request.POST.get("username")
@@ -73,6 +76,23 @@ def user_profile_update(request):
     return redirect("user_dashboard_link")
   else:
     return render(request,"userapp/user_profile_update.html")
+  
+def user_profile(request):
+  if "user_name" not in request.session:
+    return redirect("user_login_link")
+  user_id = request.session.get("user_id")
+  # user = User.objects.get(id = user_id)
+  user_data = UserProfile.objects.filter(id = user_id).first()
+  return render(request,"userapp/user_profile.html",{"user_data":user_data})
+
+def user_room_view(request,id):
+  if "user_name" not in request.session:
+    return redirect("user_login_link")
+  
+  room = Room.objects.get(id=id)
+  return render(request,"userapp/user_room_view.html",{"room":room})
+  
+  
     
   
   

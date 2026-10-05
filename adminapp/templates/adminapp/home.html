@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Special Hostel Offer</title>
+
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: white;
+
+      background:
+        radial-gradient(
+          circle at 15% 15%,
+          rgba(229, 9, 20, 0.25),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 85% 80%,
+          rgba(229, 9, 20, 0.15),
+          transparent 30%
+        ),
+        #050505;
+
+      overflow-x: hidden;
+    }
+
+
+    /* ================= NAVBAR ================= */
+
+    .navbar {
+      height: 75px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 6%;
+
+      background: rgba(10, 10, 10, 0.75);
+
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+
+      backdrop-filter: blur(20px);
+
+      position: sticky;
+      top: 0;
+
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: 900;
+
+      color: #e50914;
+
+      letter-spacing: 2px;
+
+      text-shadow:
+        0 0 15px rgba(229,9,20,0.5);
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-buttons a {
+      text-decoration: none;
+
+      color: white;
+
+      padding: 9px 18px;
+
+      border-radius: 7px;
+
+      font-size: 13px;
+      font-weight: 600;
+
+      background: rgba(255,255,255,0.08);
+
+      border: 1px solid rgba(255,255,255,0.1);
+
+      transition: 0.3s;
+    }
+
+    .nav-buttons a:hover {
+      background: #e50914;
+
+      border-color: #e50914;
+
+      transform: translateY(-2px);
+    }
+
+
+    /* ================= HERO ================= */
+
+    .hero {
+      text-align: center;
+
+      padding: 75px 20px 45px;
+
+      position: relative;
+    }
+
+    .limited {
+      display: inline-block;
+
+      background: #e50914;
+
+      padding: 8px 18px;
+
+      border-radius: 30px;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      letter-spacing: 1px;
+
+      box-shadow:
+        0 0 25px rgba(229,9,20,0.35);
+
+      margin-bottom: 22px;
+
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 15px rgba(229,9,20,0.25);
+      }
+
+      50% {
+        box-shadow: 0 0 30px rgba(229,9,20,0.65);
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 75px);
+
+      line-height: 1;
+
+      font-weight: 900;
+
+      letter-spacing: -3px;
+    }
+
+    .hero h1 span {
+      color: #e50914;
+
+      text-shadow:
+        0 0 25px rgba(229,9,20,0.45);
+    }
+
+    .hero h2 {
+      margin-top: 20px;
+
+      font-size: clamp(20px, 3vw, 30px);
+
+      color: #ddd;
+    }
+
+    .hero p {
+      max-width: 650px;
+
+      margin: 18px auto 0;
+
+      color: #999;
+
+      font-size: 15px;
+
+      line-height: 1.6;
+    }
+
+
+    /* ================= ₹1 OFFER ================= */
+
+    .price-card {
+      width: 90%;
+      max-width: 800px;
+
+      margin: 20px auto 50px;
+
+      padding: 35px;
+
+      text-align: center;
+
+      position: relative;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,0.11),
+          rgba(255,255,255,0.035)
+        );
+
+      border: 1px solid rgba(255,255,255,0.13);
+
+      border-radius: 25px;
+
+      backdrop-filter: blur(20px);
+
+      box-shadow:
+        0 25px 70px rgba(0,0,0,0.65),
+        0 0 40px rgba(229,9,20,0.08);
+
+      overflow: hidden;
+    }
+
+    .price-card::before {
+      content: "";
+
+      position: absolute;
+
+      width: 250px;
+      height: 250px;
+
+      background: #e50914;
+
+      filter: blur(120px);
+
+      opacity: 0.15;
+
+      top: -130px;
+      left: -100px;
+    }
+
+    .only {
+      color: #aaa;
+
+      font-size: 15px;
+
+      position: relative;
+    }
+
+    .price {
+      margin: 5px 0;
+
+      font-size: 90px;
+
+      font-weight: 900;
+
+      color: #e50914;
+
+      line-height: 1;
+
+      text-shadow:
+        0 0 30px rgba(229,9,20,0.4);
+
+      position: relative;
+    }
+
+    .price sup {
+      font-size: 40px;
+      vertical-align: top;
+    }
+
+    .month {
+      color: #aaa;
+
+      font-size: 14px;
+    }
+
+    .after {
+      margin-top: 18px;
+
+      color: white;
+
+      font-size: 15px;
+    }
+
+    .after strong {
+      color: #e50914;
+    }
+
+
+    /* ================= BENEFITS ================= */
+
+    .section-title {
+      text-align: center;
+
+      margin-bottom: 30px;
+    }
+
+    .section-title h2 {
+      font-size: 30px;
+    }
+
+    .section-title span {
+      color: #e50914;
+    }
+
+    .benefits {
+      width: 90%;
+      max-width: 1150px;
+
+      margin: auto;
+
+      display: grid;
+
+      grid-template-columns:
+        repeat(auto-fit, minmax(240px, 1fr));
+
+      gap: 20px;
+
+      padding-bottom: 50px;
+    }
+
+    .benefit {
+      padding: 28px 22px;
+
+      text-align: center;
+
+      background:
+        rgba(255,255,255,0.055);
+
+      border: 1px solid rgba(255,255,255,0.09);
+
+      border-radius: 18px;
+
+      backdrop-filter: blur(15px);
+
+      transition: 0.35s ease;
+    }
+
+    .benefit:hover {
+      transform: translateY(-8px);
+
+      border-color: rgba(229,9,20,0.5);
+
+      background:
+        rgba(229,9,20,0.07);
+
+      box-shadow:
+        0 15px 35px rgba(0,0,0,0.45);
+    }
+
+    .icon {
+      font-size: 42px;
+
+      margin-bottom: 15px;
+    }
+
+    .benefit h3 {
+      font-size: 18px;
+
+      margin-bottom: 10px;
+    }
+
+    .benefit p {
+      color: #999;
+
+      font-size: 13px;
+
+      line-height: 1.6;
+    }
+
+
+    /* ================= FOOD OFFER ================= */
+
+    .food-banner {
+      width: 90%;
+      max-width: 1150px;
+
+      margin: 0 auto 50px;
+
+      padding: 30px;
+
+      text-align: center;
+
+      border-radius: 20px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(229,9,20,0.16),
+          rgba(255,255,255,0.04)
+        );
+
+      border: 1px solid rgba(229,9,20,0.25);
+
+      backdrop-filter: blur(15px);
+    }
+
+    .food-banner h2 {
+      font-size: 28px;
+
+      margin-bottom: 10px;
+    }
+
+    .food-banner h2 span {
+      color: #e50914;
+    }
+
+    .food-banner p {
+      color: #bbb;
+
+      line-height: 1.7;
+
+      font-size: 14px;
+    }
+
+
+    /* ================= CTA ================= */
+
+    .cta {
+      text-align: center;
+
+      padding: 30px 20px 70px;
+    }
+
+    .cta h2 {
+      font-size: 32px;
+
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      color: #888;
+
+      margin-bottom: 25px;
+    }
+
+    .cta a {
+      display: inline-block;
+
+      text-decoration: none;
+
+      padding: 15px 45px;
+
+      color: white;
+
+      background:
+        linear-gradient(
+          135deg,
+          #e50914,
+          #b20710
+        );
+
+      border-radius: 9px;
+
+      font-weight: 800;
+
+      box-shadow:
+        0 10px 30px rgba(229,9,20,0.3);
+
+      transition: 0.3s;
+    }
+
+    .cta a:hover {
+      transform: translateY(-4px);
+
+      box-shadow:
+        0 15px 40px rgba(229,9,20,0.5);
+    }
+
+
+    /* ================= FOOTER ================= */
+
+    footer {
+      text-align: center;
+
+      padding: 20px;
+
+      border-top: 1px solid rgba(255,255,255,0.07);
+
+      color: #666;
+
+      font-size: 12px;
+    }
+
+
+    /* ================= MOBILE ================= */
+
+    @media (max-width: 600px) {
+
+      .navbar {
+        padding: 0 20px;
+      }
+
+      .logo {
+        font-size: 23px;
+      }
+
+      .nav-buttons a {
+        padding: 8px 11px;
+
+        font-size: 11px;
+      }
+
+      .hero {
+        padding-top: 55px;
+      }
+
+      .hero h1 {
+        letter-spacing: -2px;
+      }
+
+      .price-card {
+        padding: 30px 15px;
+      }
+
+      .price {
+        font-size: 70px;
+      }
+
+      .benefits {
+        width: 88%;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+
+  <!-- ================= NAVBAR ================= -->
+
+  <nav class="navbar">
+
+    <div class="logo">
+        PENTAGON STAY
+    </div>
+
+    <div class="nav-buttons">
+
+      <a href="{% url 'admin_login_link' %}">
+        Admin
+      </a>
+
+      <a href="{% url 'user_signup_link' %}">
+        Sign Up
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- ================= HERO ================= -->
+
+  <section class="hero">
+
+    <div class="limited">
+      🔥 LIMITED TIME OFFER
+    </div>
+
+    <h1>
+      LIVE BETTER.<br>
+      PAY <span>LESS.</span>
+    </h1>
+
+    <h2>
+      Your First Month For Just ₹1
+    </h2>
+
+    <p>
+      Premium hostel living with delicious food, comfortable rooms,
+      flexible EMI options and everything you need under one roof.
+    </p>
+
+  </section>
+
+
+  <!-- ================= PRICE ================= -->
+
+  <div class="price-card">
+
+    <div class="only">
+      FIRST MONTH
+    </div>
+
+    <div class="price">
+      <sup>₹</sup>1
+    </div>
+
+    <div class="month">
+      ONLY FOR YOUR FIRST MONTH
+    </div>
+
+    <div class="after">
+      From the second month onwards:
+      <strong>₹5,000 / month</strong>
+    </div>
+
+  </div>
+
+
+  <!-- ================= BENEFITS ================= -->
+
+  <div class="section-title">
+
+    <h2>
+      Everything <span>Included</span>
+    </h2>
+
+  </div>
+
+
+  <div class="benefits">
+
+
+    <div class="benefit">
+
+      <div class="icon">🍛</div>
+
+      <h3>Unlimited Food</h3>
+
+      <p>
+        Enjoy up to 3 delicious meals every day,
+        plus snacks to keep you energized.
+      </p>
+
+    </div>
+
+
+    <div class="benefit">
+
+      <div class="icon">🛏️</div>
+
+      <h3>Comfortable Stay</h3>
+
+      <p>
+        Clean, comfortable rooms designed
+        for a peaceful and convenient stay.
+      </p>
+
+    </div>
+
+
+    <div class="benefit">
+
+      <div class="icon">💳</div>
+
+      <h3>Easy EMI Option</h3>
+
+      <p>
+        Flexible EMI payment options available
+        so you can manage your monthly budget easily.
+      </p>
+
+    </div>
+
+
+    <div class="benefit">
+
+      <div class="icon">🍿</div>
+
+      <h3>Snacks Included</h3>
+
+      <p>
+        Get tasty snacks along with your regular
+        meals without worrying about extra charges.
+      </p>
+
+    </div>
+
+
+    <div class="benefit">
+
+      <div class="icon">📶</div>
+
+      <h3>Wi-Fi Access</h3>
+
+      <p>
+        Stay connected with high-speed internet
+        for study, work and entertainment.
+      </p>
+
+    </div>
+
+
+    <div class="benefit">
+
+      <div class="icon">🛡️</div>
+
+      <h3>Safe & Secure</h3>
+
+      <p>
+        A secure living environment so you can
+        focus on your studies and career.
+      </p>
+
+    </div>
+
+
+  </div>
+
+
+  <!-- ================= FOOD BANNER ================= -->
+
+  <div class="food-banner">
+
+    <h2>
+      🍽️ Eat More. <span>Pay Less.</span>
+    </h2>
+
+    <p>
+      Breakfast • Lunch • Dinner • Snacks
+      <br>
+      Three meals every day with snacks included
+      as part of your hostel stay.
+    </p>
+
+  </div>
+
+
+  <!-- ================= CTA ================= -->
+
+  <section class="cta">
+
+    <h2>
+      Ready to Grab the Offer?
+    </h2>
+
+    <p>
+      ₹1 for your first month won't last forever.
+    </p>
+
+    <a href="{% url 'user_signup_link' %}">
+      🚀 Get Started Now
+    </a>
+
+  </section>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer>
+
+    © 2026 Hostel • Premium Living Made Affordable
+
+  </footer>
+
+
+</body>
+</html>

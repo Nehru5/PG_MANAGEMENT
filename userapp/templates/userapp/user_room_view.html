@@ -433,9 +433,20 @@
         </span>
       </div>
 
-      <button class="book-btn">
-        Book Room
-      </button>
+      <h2>Available beds</h2>
+      {% for i in beds %}
+      <h3>Bed Number: {{i.bed_no}}</h3>
+        {% if i.status == "Available" %}
+          <form method="post" action="{% url 'book_room_link' room.id i.id %}">
+            {% csrf_token %}
+              <button>Book now</button>
+          </form>
+          {% else %}
+          <button>Not Available</button>
+          {% endif %}
+        {% empty %}
+        <p>No beds found in this rooms</p>
+      {% endfor %}
 
       <a href="javascript:history.back()" class="back-btn">
         ← Back to Rooms

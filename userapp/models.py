@@ -33,3 +33,13 @@ class Booking(models.Model):
   
   def __str__(self):
     return f"{self.user.username} - {self.room.room_no} - {self.bed.bed_no}"
+  
+class Complaint(models.Model):
+  user = models.ForeignKey(User,on_delete=models.CASCADE)
+  title = models.CharField(max_length=100)
+  description = models.TextField()
+  complaint_date = models.DateTimeField(auto_now_add=True)
+  status  = models.CharField(max_length=150,default="Not Resolved")
+  
+  def __str__(self):
+    return f"{self.user.username} Made a Complaint"

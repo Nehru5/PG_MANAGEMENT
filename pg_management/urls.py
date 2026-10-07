@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from adminapp.views import login,dashboard,adminprofile,updateAdminProfile,addRoom,roomDetail,notice,logout
+from adminapp.views import login,dashboard,adminprofile,updateAdminProfile,addRoom,roomDetail,notice,logout,room_requests,approveBooking,rejectBooking
 from userapp.views import user_signup,user_login,userDashboard,user_profile_update,user_profile,user_room_view,homepage,book_room
 
 urlpatterns = [
@@ -38,6 +38,9 @@ urlpatterns = [
     path("user_profile/",user_profile,name="user_profile_link"),
     path("user_room_view/<int:id>/",user_room_view,name="user_room_view_link"),
     path("",homepage,name="homepage_link"),
-    path("book_room/<int:room_id>/<int:bed_id>/",book_room,name="book_room_link")
+    path("book_room/<int:room_id>/<int:bed_id>/",book_room,name="book_room_link"),
+    path("room_requests/",room_requests,name="room_requests_link"),
+    path("approve_booking/<int:id>/",approveBooking,name="approve_booking_link"),
+    path("reject_booking/<int:id>/",rejectBooking,name="reject_booking_link")
 ]
 urlpatterns = urlpatterns+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

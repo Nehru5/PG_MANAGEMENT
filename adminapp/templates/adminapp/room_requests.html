@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    <center><h1>Booking Details</h1></center>
+
+    {% for i in bookings %}
+    <h1>{{i.id}}</h1>
+      <h2>Name: {{i.user.username}}</h2>
+      <h2>Room Number: {{i.room.room_no}}</h2>
+      <h2>Bed Number: {{i.bed.bed_no}}</h2>
+      <h2>Booking Data: {{i.booking_date}}</h2>
+      <h2>Status: {{i.status}}</h2>
+      {% if i.status == "Pending" %}
+        <form method="post" action="{% url 'approve_booking_link' i.id %}">
+          {% csrf_token %}
+          <button>Approve</button>
+        </form>
+        <form method="post" action="{% url 'reject_booking_link' i.id %}">
+          {% csrf_token %}
+          <button>Reject</button>
+        </form>
+        {% else %}
+        <p>No Action</p>
+        {% endif %}
+      <hr> 
+    {% empty %}
+    <p>No bookings Found</p>
+    {% endfor %}
+</body>
+</html>
